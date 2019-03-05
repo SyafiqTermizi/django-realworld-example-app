@@ -1,0 +1,8 @@
+Django==2.1.7  # https://www.djangoproject.com/
+psycopg2==2.7.7  # https://github.com/psycopg/psycopg2
+django-cors-headers==2.4.0  # https://github.com/ottoyiu/django-cors-headers
+djangorestframework==3.9.1 # https://github.com/encode/django-rest-framework
+django-extensions==2.1.6  # https://github.com/django-extensions/django-extensions
+PyJWT==1.7.1  # https://github.com/jpadilla/pyjwt
+pytz==2018.9
+six==1.12.0

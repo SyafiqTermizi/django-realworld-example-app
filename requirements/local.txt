@@ -1,0 +1,5 @@
+-r ./base.txt
+
+pylint==2.2.2  # https://pylint.readthedocs.io/en/latest/user_guide/
+flake8==3.7.5  # https://github.com/PyCQA/flake8
+ipython==7.3.0 # https://jupyter.readthedocs.io/en/latest/ipython/content-ipython.html

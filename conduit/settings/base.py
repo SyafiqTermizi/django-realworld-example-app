@@ -20,33 +20,36 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2^f+3@v7$v1f8yt0!s)3-1t$)tlp+xm17=*g))_xoi&&9m#2a&'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = True if os.environ.get('DJANGO_DEBUG', False) else False
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
 
+THIRD_PARTY_APPS = [
     'corsheaders',
     'django_extensions',
     'rest_framework',
+]
 
+LOCAL_APPS = [
     'conduit.apps.articles',
     'conduit.apps.authentication',
     'conduit.apps.core',
     'conduit.apps.profiles',
 ]
+
+INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DJANGO_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,8 +88,11 @@ WSGI_APPLICATION = 'conduit.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
     }
 }
 
@@ -128,11 +134,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
-CORS_ORIGIN_WHITELIST = (
-    '0.0.0.0:4000',
-    'localhost:4000',
-)
 
 # Tell Django about the custom `User` model we created. The string
 # `authentication.User` tells Django we are referring to the `User` model in
